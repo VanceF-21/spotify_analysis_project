@@ -1,0 +1,172 @@
+======================================================================
+机器学习模型实验结果汇总 (智能自适应调参版)
+======================================================================
+
+实验时间: 2025-10-26 10:47:40
+数据文件: /Users/vancefeng/Desktop/ords/AML/spotify_analysis_project/data/data_sampled_10000.csv
+数据形状: (10000, 23)
+训练集大小: 8000
+测试集大小: 2000
+特征配置: 包含完整特征 (含 Artist_Canon)
+
+配置:
+  - 数据采样: 启用
+  - 采样大小: 10000
+  - 智能调参: 启用
+  - 调参模型数: Top 3
+  - 早停策略: patience=3, min_improvement=0.0001
+
+----------------------------------------------------------------------
+第一阶段: 基准模型结果
+----------------------------------------------------------------------
+
+                             R2          MSE       RMSE
+Random Forest          0.872104   439.269427  20.958755
+HistGradient Boosting  0.871315   441.980992  21.023344
+Extra Trees            0.870933   443.291466  21.054488
+Decision Tree          0.864229   466.318037  21.594398
+Gradient Boosting      0.772762   780.469916  27.936892
+AdaBoost               0.150005  2919.386071  54.031343
+
+训练时间:
+  Decision Tree: 0.05秒
+  Random Forest: 0.59秒
+  Extra Trees: 0.64秒
+  Gradient Boosting: 1.27秒
+  HistGradient Boosting: 0.93秒
+  AdaBoost: 0.05秒
+
+----------------------------------------------------------------------
+第二阶段: 智能调优结果
+----------------------------------------------------------------------
+
+
+Random Forest:
+  最佳参数:
+    regressor__n_estimators: 100
+    regressor__max_depth: 20
+    regressor__min_samples_leaf: 1
+
+  参数搜索历史:
+    regressor__n_estimators:
+      50: R2=0.8777
+      100: R2=0.8779
+      150: R2=0.8777
+      200: R2=0.8778
+      300: R2=0.8776
+    regressor__max_depth:
+      10: R2=0.8199
+      15: R2=0.8772
+      20: R2=0.8777
+      25: R2=0.8776
+      30: R2=0.8776
+      None: R2=0.8776
+    regressor__min_samples_leaf:
+      1: R2=0.8776
+      2: R2=0.8748
+      5: R2=0.8703
+      10: R2=0.8618
+  调优耗时: 44.19秒
+
+HistGradient Boosting:
+  最佳参数:
+    regressor__max_iter: 200
+    regressor__learning_rate: 0.05
+    regressor__max_depth: 5
+
+  参数搜索历史:
+    regressor__max_iter:
+      50: R2=0.8640
+      100: R2=0.8818
+      150: R2=0.8839
+      200: R2=0.8841
+      300: R2=0.8838
+      400: R2=0.8834
+    regressor__learning_rate:
+      0.01: R2=0.8475
+      0.05: R2=0.8846
+      0.1: R2=0.8834
+      0.15: R2=0.8833
+      0.2: R2=0.8819
+    regressor__max_depth:
+      5: R2=0.8832
+      10: R2=0.8822
+      15: R2=0.8822
+      20: R2=0.8819
+  调优耗时: 74.71秒
+
+Extra Trees:
+  最佳参数:
+    regressor__n_estimators: 200
+    regressor__max_depth: 30
+    regressor__min_samples_leaf: 1
+
+  参数搜索历史:
+    regressor__n_estimators:
+      50: R2=0.8775
+      100: R2=0.8777
+      150: R2=0.8778
+      200: R2=0.8780
+      300: R2=0.8780
+      400: R2=0.8779
+      500: R2=0.8779
+    regressor__max_depth:
+      10: R2=0.5762
+      15: R2=0.7864
+      20: R2=0.8603
+      25: R2=0.8761
+      30: R2=0.8783
+      None: R2=0.8779
+    regressor__min_samples_leaf:
+      1: R2=0.8779
+      2: R2=0.8754
+      5: R2=0.8722
+      10: R2=0.8627
+  调优耗时: 80.58秒
+
+----------------------------------------------------------------------
+最终所有模型性能对比 (按 R2 排序)
+----------------------------------------------------------------------
+
+                                     R2          MSE       RMSE
+Random Forest                  0.872104   439.269427  20.958755
+Random Forest (Tuned)          0.872024   439.546824  20.965372
+HistGradient Boosting          0.871315   441.980992  21.023344
+Extra Trees (Tuned)            0.871119   442.653525  21.039333
+Extra Trees                    0.870933   443.291466  21.054488
+Decision Tree                  0.864229   466.318037  21.594398
+HistGradient Boosting (Tuned)  0.784653   739.628722  27.196116
+Gradient Boosting              0.772762   780.469916  27.936892
+AdaBoost                       0.150005  2919.386071  54.031343
+
+----------------------------------------------------------------------
+Top 20 特征重要性 (来自 Random Forest)
+----------------------------------------------------------------------
+
+                            Feature  Importance
+2                     num__Loudness    0.212453
+1                       num__Energy    0.113527
+3                  num__Speechiness    0.106475
+7                   num__Mood_Score    0.082017
+0                 num__Danceability    0.075806
+8       num__Acoustic_vs_Electronic    0.073370
+6                      num__Valence    0.066299
+4                 num__Acousticness    0.052608
+13     cat__Continent_Latin-America    0.045490
+5             num__Instrumentalness    0.026970
+19          cat__Nationality_Brazil    0.025717
+210   cat__Artist_Canon_miley cyrus    0.022994
+269           cat__Artist_Canon_sza    0.010038
+285     cat__Artist_Canon_tom odell    0.006926
+234   cat__Artist_Canon_post malone    0.006721
+217      cat__Artist_Canon_newjeans    0.003887
+126   cat__Artist_Canon_frank ocean    0.003124
+21        cat__Nationality_Colombia    0.002790
+273  cat__Artist_Canon_taylor swift    0.002781
+11              cat__Continent_Asia    0.002425
+
+======================================================================
+最佳模型: Random Forest
+R2 Score: 0.8721
+RMSE: 20.9588
+======================================================================

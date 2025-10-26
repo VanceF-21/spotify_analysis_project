@@ -1,0 +1,98 @@
+======================================================================
+机器学习模型实验结果汇总 (加速版)
+======================================================================
+
+实验时间: 2025-10-26 00:30:43
+数据文件: /Users/vancefeng/Desktop/ords/AML/spotify_analysis_project/data/data_clean_all.csv
+原始数据形状: (100000, 23)
+训练集大小: 80000
+测试集大小: 20000
+
+加速配置:
+  - 数据采样: 启用
+  - 采样大小: 100000
+  - 自动调参: 启用
+  - 搜索迭代: 10
+  - 交叉验证: 2折
+
+----------------------------------------------------------------------
+第一阶段: 基准模型结果
+----------------------------------------------------------------------
+
+                             R2          MSE       RMSE
+Decision Tree          0.319965  2228.182506  47.203628
+Random Forest          0.240456  2488.697818  49.886850
+HistGradient Boosting  0.163792  2739.891567  52.343974
+Extra Trees            0.106687  2927.001222  54.101767
+Gradient Boosting      0.054721  3097.271438  55.653135
+AdaBoost               0.015359  3226.244918  56.800043
+
+训练时间:
+  Decision Tree: 1.93秒
+  Random Forest: 5.79秒
+  Extra Trees: 2.52秒
+  Gradient Boosting: 4.40秒
+  HistGradient Boosting: 8.24秒
+  AdaBoost: 1.84秒
+
+----------------------------------------------------------------------
+第二阶段: 调优后的最佳参数
+----------------------------------------------------------------------
+
+
+Decision Tree:
+  regressor__min_samples_leaf: 5
+  regressor__max_depth: 50
+  调优耗时: 5.12秒
+
+Random Forest:
+  regressor__n_estimators: 50
+  regressor__min_samples_leaf: 5
+  regressor__max_depth: 30
+  调优耗时: 144.81秒
+
+----------------------------------------------------------------------
+最终所有模型性能对比 (按 R2 排序)
+----------------------------------------------------------------------
+
+                             R2          MSE       RMSE
+Random Forest (Tuned)  0.324747  2212.511161  47.037338
+Decision Tree          0.319965  2228.182506  47.203628
+Decision Tree (Tuned)  0.318888  2231.708832  47.240966
+Random Forest          0.240456  2488.697818  49.886850
+HistGradient Boosting  0.163792  2739.891567  52.343974
+Extra Trees            0.106687  2927.001222  54.101767
+Gradient Boosting      0.054721  3097.271438  55.653135
+AdaBoost               0.015359  3226.244918  56.800043
+
+----------------------------------------------------------------------
+Top 20 特征重要性 (来自 Random Forest (Tuned))
+----------------------------------------------------------------------
+
+                             Feature  Importance
+2                      num__Loudness    0.122503
+0                  num__Danceability    0.121461
+1                        num__Energy    0.116274
+6                       num__Valence    0.099867
+3                   num__Speechiness    0.091239
+7                    num__Mood_Score    0.083324
+4                  num__Acousticness    0.066010
+8        num__Acoustic_vs_Electronic    0.060800
+5              num__Instrumentalness    0.016757
+22           cat__Nationality_Brazil    0.009020
+63      cat__Nationality_Puerto Rico    0.006104
+13      cat__Continent_Latin-America    0.005712
+78    cat__Nationality_United States    0.005690
+573         cat__Artist_Canon_eminem    0.005634
+668  cat__Artist_Canon_glass animals    0.005401
+10      cat__Continent_Anglo-America    0.005358
+224      cat__Artist_Canon_bad bunny    0.005229
+12             cat__Continent_Europe    0.004140
+855  cat__Artist_Canon_justin bieber    0.004065
+546     cat__Artist_Canon_ed sheeran    0.003993
+
+======================================================================
+最佳模型: Random Forest (Tuned)
+R2 Score: 0.3247
+RMSE: 47.0373
+======================================================================
