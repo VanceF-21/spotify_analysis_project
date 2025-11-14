@@ -1,0 +1,76 @@
+Spotify Popularity Prediction Experiment - Combined Features + Balanced Data
+======================================================================
+
+Experiment time: 2025-11-14 21:59:51
+Data size: (467419, 32)
+Train set: 373935, Test set: 93484
+
+Feature Configuration:
+  - Weighted combination features: 8
+    weighted_C0, weighted_C1, weighted_C2, weighted_C3, weighted_C4, weighted_C5, weighted_C6, weighted_C7
+  - Total numerical features: 8
+  - Categorical features: 5
+    Nationality, Continent, is_weekend, season, closest_cluster
+
+Cluster Weights Source: Table 5
+  - Popular clusters: C1 (Party), C5 (Electronic), C7 (Dance)
+  - Less popular clusters: C0 (Low-energy), C2 (Instrumental), C4 (Acoustic)
+  - Neutral clusters: C3 (Rap), C6 (Medium Instrumental)
+
+Target Variable:
+  - Strategy: Median split for 50%-50% balance
+  - Distribution: 40.04% vs 59.96%
+
+Baseline Model Results
+----------------------------------------------------------------------
+
+                       Accuracy  F1 (Binary)
+Random Forest          0.808577     0.846206
+Decision Tree          0.807785     0.844764
+Extra Trees            0.807743     0.844695
+HistGradient Boosting  0.689433     0.786108
+Gradient Boosting      0.675046     0.779681
+AdaBoost               0.602788     0.749847
+
+Best Model: Random Forest
+----------------------------------------------------------------------
+
+Classification Report:
+              precision    recall  f1-score   support
+
+Less Popular       0.79      0.70      0.75     37434
+     Popular       0.82      0.88      0.85     56050
+
+    accuracy                           0.81     93484
+   macro avg       0.81      0.79      0.80     93484
+weighted avg       0.81      0.81      0.81     93484
+
+
+Confusion Matrix:
+[[26358 11076]
+ [ 6819 49231]]
+
+Top 20 Feature Importance
+----------------------------------------------------------------------
+
+                           Feature  Importance
+4                 num__weighted_C4    0.090127
+5                 num__weighted_C5    0.086705
+2                 num__weighted_C2    0.086376
+7                 num__weighted_C7    0.085419
+0                 num__weighted_C0    0.084888
+1                 num__weighted_C1    0.084815
+3                 num__weighted_C3    0.084336
+6                 num__weighted_C6    0.083569
+84                   cat__season_4    0.048809
+81                   cat__season_1    0.047077
+83                   cat__season_3    0.046797
+82                   cat__season_2    0.045853
+80               cat__is_weekend_1    0.010970
+79               cat__is_weekend_0    0.010955
+90         cat__closest_cluster_C5    0.009095
+92         cat__closest_cluster_C7    0.007779
+85         cat__closest_cluster_C0    0.006440
+86         cat__closest_cluster_C1    0.006294
+69  cat__Nationality_United States    0.005997
+16         cat__Nationality_Brazil    0.004969
