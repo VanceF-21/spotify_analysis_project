@@ -14,10 +14,13 @@ The project implements a two-stage analytical pipeline:
 ```
 spotify_analysis_project/
 ├── data/
-│   ├── task1/             
+│   ├── task1/ 
+│   │   └──            
 │   └── task2/
 │       └── spotify_dataset.csv             # Task 2 specific dataset
 ├── scripts/
+│   ├── data_preparation/
+│   │   ├── xxxx.py
 │   ├── music_style_classification/
 │   │   └── [Task 1 clustering scripts - to be added]
 │   └── feature_popularity_analysis/
