@@ -2,8 +2,7 @@
 
 ## Overview
 
-This analysis utilizes the Spotify "Top 200" playlists dataset (2017-2023). The dataset comprises three main categories of variables: Audio attributes (e.g., danceability, energy, loudness), Artist attributes (e.g., nationality, continent, track ID), and Popularity metrics (e.g., pop_points_total). A robust preprocessing and feature engineering pipeline was executed to clean and prepare the data for analysis. Following this, Exploratory Data Analysis (EDA) was conducted to understand intrinsic data relationships, such as the strong correlation between Energy and Loudness ($\rho > 0.7$) and the weak linear relationship between Rank and audio features. The final preprocessed dataset contains 651,936 rows and 21 columns.
-
+This analysis uses the Spotify "Top 200" dataset (2017-2023), which includes Audio attributes, Artist attributes, and Popularity metrics. Data was cleaned via preprocessing and feature engineering. Exploratory Data Analysis (EDA) revealed a strong correlation between Energy and Loudness ($\rho > 0.7$) but weak linear relationships between Rank and audio features. The final dataset contains 651,936 rows and 21 columns.
 ## Method
 
 - **Data Preprocessing:**  The pipeline involved parsing CSVs, correcting typos, and ensuring data integrity by removing duplicates and rows with missing keys. We cleaned numerical data, corrected a Loudness anomaly, and clipped audio features to their theoretical [0,1] domain.
