@@ -15,7 +15,8 @@ The project implements a two-stage analytical pipeline:
 spotify_analysis_project/
 ├── data/
 │   ├── task1/ 
-│   │   └──            
+│   │   │── spotify_database.db
+│   │   └── spotify_data_V3.csv   
 │   └── task2/
 │       └── spotify_dataset.csv             # Task 2 specific dataset
 ├── scripts/
@@ -24,7 +25,12 @@ spotify_analysis_project/
 │   │   ├── spotify_data_cleaning.py        # Data cleaning
 │   │   └── table1.py
 │   ├── music_style_classification/
-│   │   └── [Task 1 clustering scripts - to be added]
+│   │   ├──Kmeans_stability_analysis.py
+│   │   ├──MAIN_Elbow_Point_Optimal_Clustering.py
+│   │   ├──SectionB Kmeans_feature_and_dimension.py
+│   │   ├──Hierarchical clustering_result
+│   │   ├──Kmeans++8_Feature_Mean_Std
+│   │   └──visualisation
 │   └── feature_popularity_analysis/
 │       ├── classification_binary.py                 # Main classification script
 │       ├── regression.py                            # Regression baseline (optional)
@@ -82,7 +88,66 @@ pip install -r requirements.txt
 
 ### Task 1: Music Style Classification
 
-*[To be added - K-Means++ clustering implementation]*
+#### All Command-Line Arguments
+
+| Argument | Type | Default | Description |
+|----------|------|---------|-------------|
+| **Data Configuration** |
+| `--db_path` | `str` | `data/task1/spotify_database.db` | Path to SQLite database file |
+| `--table_name` | `str` | `KmeanSample` | Table name in the database |
+| `--output_dir` | `str` | `results/task1/clustering` | Base directory for output files |
+| **Clustering Configuration** |
+| `--n_clusters` | `int` | `8` | Number of clusters for K-means |
+| `--random_state` | `int` | `42` | Random seed for reproducibility |
+| `--clustering_method` | `str` | `kmeans++` | Clustering method to use. Choices: `kmeans`, `kmeans++`, `hierarchical` |
+| **K-means Hyperparameters** |
+| `--n_init` | `int` | `8` | Number of initializations for K-means |
+| `--max_iter` | `int` | `200` | Maximum number of iterations for K-means |
+| **Hierarchical Clustering Hyperparameters** |
+| `--linkage` | `str` | `ward` | Linkage method for hierarchical clustering |
+| `--sample_size` | `int` | `8693` | Sample size for hierarchical clustering visualization |
+| **Feature Configuration** |
+| `--features` | `str [...]` | All features | Features to use for clustering. Default: `Danceability` `Loudness` `Speechiness` `Acousticness` `Instrumentalness` `Valence` |
+| **Analysis Options** |
+| `--perform_stability_analysis` | `bool` | `False` | Whether to perform stability analysis |
+| `--n_seeds` | `int` | `100` | Number of random seeds for stability analysis |
+| **Performance** |
+| `--n_jobs` | `int` | `-1` | Number of parallel jobs (-1 = all CPU cores) |
+
+#### Example Commands
+
+**Basic K-means++ clustering with 8 clusters:**
+```bash
+python scripts/music_style_classification/MAIN_Elbow_Point_Optimal_Clustering_k8.py \
+    --db_path data/task1/spotify_database.db \
+    --table_name KmeanSample \
+    --n_clusters 8 \
+    --random_state 42 \
+    --output_dir results/task1/clustering \
+    --clustering_method kmeans++
+```
+
+**Run stability analysis for multiple K values:**
+```bash
+python scripts/music_style_classification/kmeans_stability_analysis.py \
+    --db_path data/task1/spotify_database.db \
+    --table_name KmeanSample \
+    --output_dir results/task1/stability \
+    --k_values 4 7 8 10 \
+    --n_seeds 50 \
+    --sample_size 8693 \
+    --n_init 10 \
+    --perform_stability_analysis True
+```
+
+**Feature and dimensionality analysis:**
+```bash
+python scripts/music_style_classification/SectionB\ Kmeans_feature_and_dimension.py \
+    --db_path data/task1/spotify_database.db \
+    --output_dir results/task1/dimension_analysis \
+    --n_clusters 12 \
+    --random_state 0
+```
 
 **Expected Outputs:**
 - 8 distinct music style clusters (C0-C7)
