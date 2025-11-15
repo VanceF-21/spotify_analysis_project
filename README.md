@@ -20,7 +20,9 @@ spotify_analysis_project/
 │       └── spotify_dataset.csv             # Task 2 specific dataset
 ├── scripts/
 │   ├── data_preparation/
-│   │   ├── xxxx.py
+│   │   ├── correlation_heatmap.py          # Correlation heatmap
+│   │   ├── spotify_data_cleaning.py        # Data cleaning
+│   │   └── table1.py
 │   ├── music_style_classification/
 │   │   └── [Task 1 clustering scripts - to be added]
 │   └── feature_popularity_analysis/
