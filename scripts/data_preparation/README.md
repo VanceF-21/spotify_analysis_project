@@ -1,4 +1,4 @@
-# Task 2: Popularity Prediction
+# data preparation
 
 ## Overview
 
