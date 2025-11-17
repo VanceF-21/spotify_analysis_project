@@ -7,7 +7,7 @@ from scipy.cluster.hierarchy import dendrogram, linkage
 import matplotlib.pyplot as plt
 # C1 Baseline Clustering: K-Means (Random Initialization)
 
-conn = sqlite3.connect("data/task1/spotify_database.db")
+conn = sqlite3.connect("SPOTIFY_ANALYSIS_PROJECT/data/task1/spotify_database.db")
 df = pd.read_sql("SELECT * FROM KmeanSample;", conn)
 
 X = df[['Danceability','Loudness','Speechiness',
@@ -266,12 +266,12 @@ plt.subplots_adjust(left=LEFT_MARGIN_FRACTION,
                     bottom=BOTTOM_MARGIN_FRACTION)
 
 # Save as high-resolution vector graphic in SVG format
-svg_filename = 'scripts/music_style_classification/results/hierarchical_clustering_heatmap_k=8.svg'
+svg_filename = 'SPOTIFY_ANALYSIS_PROJECT/scripts/music_style_classification/results/hierarchical_clustering_heatmap_k=8.svg'
 plt.savefig(svg_filename, format='svg', dpi=300, bbox_inches='tight')
 print(f"Saved high-resolution vector image to: {svg_filename}")
 
 # Also save as high-DPI PNG as a backup
-png_filename = 'scripts/music_style_classification/results/hierarchical_clustering_heatmap_k=8.png'
+png_filename = 'SPOTIFY_ANALYSIS_PROJECT/scripts/music_style_classification/results/hierarchical_clustering_heatmap_k=8.png'
 plt.savefig(png_filename, format='png', dpi=300, bbox_inches='tight')
 print(f"Saved high-resolution PNG image to: {png_filename}")
 
@@ -409,13 +409,13 @@ def get_final_clustered_dataframe():
     print(final_df.head())
     
     # Save result to CSV file (optional)
-    csv_filename = "scripts/music_style_classification/results/kmeans_clustered_data_deduplicated.csv"
+    csv_filename = "SPOTIFY_ANALYSIS_PROJECT/scripts/music_style_classification/results/kmeans_clustered_data_deduplicated.csv"
     final_df.to_csv(csv_filename, index=False, encoding='utf-8-sig')
     print(f"\nSaved clustered results to CSV file: {csv_filename}")
     
     # Save result to SQLite database (optional)
     try:
-        conn = sqlite3.connect(r"data/task1/spotify_database.db")
+        conn = sqlite3.connect(r"SPOTIFY_ANALYSIS_PROJECT/data/task1/spotify_database.db")
         final_df.to_sql("KmeansClusteredResults", conn, if_exists='replace', index=False)
         print(f"Saved clustered results to database table: KmeansClusteredResults")
         conn.close()
@@ -481,7 +481,7 @@ try:
     plt.title('Distribution of Song Count by Cluster', fontsize=14, pad=20)
     
     # Save pie chart
-    pie_filename = 'scripts/music_style_classification/results/cluster_distribution_pie_chart_k=8.png'
+    pie_filename = 'SPOTIFY_ANALYSIS_PROJECT/scripts/music_style_classification/results/cluster_distribution_pie_chart_k=8.png'
     plt.savefig(pie_filename, dpi=300, bbox_inches='tight')
     plt.close()
     print(f"\nSaved cluster distribution pie chart to: {pie_filename}")
@@ -551,8 +551,8 @@ def calculate_normalized_cluster_stats(original_df, feature_columns, cluster_lab
     print(pivot_std.round(4))
     
     # Save results to CSV files
-    csv_mean_filename = "scripts/music_style_classification/results/normalized_feature_means_by_cluster_k=8.csv"
-    csv_std_filename = "scripts/music_style_classification/results/normalized_feature_std_by_cluster_k=8.csv"
+    csv_mean_filename = "SPOTIFY_ANALYSIS_PROJECT/scripts/music_style_classification/results/normalized_feature_means_by_cluster_k=8.csv"
+    csv_std_filename = "SPOTIFY_ANALYSIS_PROJECT/scripts/music_style_classification/results/normalized_feature_std_by_cluster_k=8.csv"
     pivot_mean.round(4).to_csv(csv_mean_filename)
     pivot_std.round(4).to_csv(csv_std_filename)
     print(f"\nSaved normalized feature means to: {csv_mean_filename}")
@@ -571,7 +571,7 @@ def calculate_normalized_cluster_stats(original_df, feature_columns, cluster_lab
             })
     
     combined_df = pd.DataFrame(combined_results)
-    combined_filename = "scripts/music_style_classification/results/normalized_feature_stats_by_cluster_k=8.csv"
+    combined_filename = "SPOTIFY_ANALYSIS_PROJECT/scripts/music_style_classification/results/normalized_feature_stats_by_cluster_k=8.csv"
     combined_df.to_csv(combined_filename, index=False)
     print(f"Saved combined statistics to: {combined_filename}")
     

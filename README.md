@@ -118,7 +118,7 @@ pip install -r requirements.txt
 
 **Basic K-means++ clustering with 8 clusters:**
 ```bash
-python scripts/music_style_classification/MAIN_Elbow_Point_Optimal_Clustering_k8.py \
+python SPOTIFY_ANALYSIS_PROJECT/scripts/music_style_classification/MAIN_Elbow_Point_Optimal_Clustering_k8.py \
     --db_path data/task1/spotify_database.db \
     --table_name KmeanSample \
     --n_clusters 8 \
@@ -129,7 +129,7 @@ python scripts/music_style_classification/MAIN_Elbow_Point_Optimal_Clustering_k8
 
 **Run stability analysis for multiple K values:**
 ```bash
-python scripts/music_style_classification/kmeans_stability_analysis.py \
+python SPOTIFY_ANALYSIS_PROJECT/scripts/music_style_classification/kmeans_stability_analysis.py \
     --db_path data/task1/spotify_database.db \
     --table_name KmeanSample \
     --output_dir results/task1/stability \
@@ -142,7 +142,7 @@ python scripts/music_style_classification/kmeans_stability_analysis.py \
 
 **Feature and dimensionality analysis:**
 ```bash
-python scripts/music_style_classification/SectionB\ Kmeans_feature_and_dimension.py \
+python SPOTIFY_ANALYSIS_PROJECT/scripts/music_style_classification/SectionB\ Kmeans_feature_and_dimension.py \
     --db_path data/task1/spotify_database.db \
     --output_dir results/task1/dimension_analysis \
     --n_clusters 12 \

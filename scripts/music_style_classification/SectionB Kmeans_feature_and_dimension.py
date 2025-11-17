@@ -13,7 +13,7 @@ if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
 # 2. Connect to / create database.sqlite in the same folder
-conn = sqlite3.connect(r"spotify_data\spotify_database.db")
+conn = sqlite3.connect(r"SPOTIFY_ANALYSIS_PROJECT\spotify_data\spotify_database.db")
 df_train = pd.read_sql("SELECT * FROM KmeanSample2021Train;", conn)
 X_train = df_train[['Danceability','Energy','Loudness','Speechiness',
          'Acousticness','Instrumentalness','Valence']]
