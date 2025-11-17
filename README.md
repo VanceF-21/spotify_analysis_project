@@ -60,9 +60,28 @@ The dataset contains Spotify "Top 200" playlists data spanning 2017–2023 with 
 - Pop_points_total, Pop_points_artist, Rank, popularity_class
 
 
-## Data Preparation
+## Download the Datasets
 
 You can download datasets used in this project from Hugging Face before running any code. All scripts in Task 1 and Task 2 depend on these files being placed in the correct directory structure.
+
+Because GitHub cannot host large files, all datasets required for this project must be downloaded manually from Hugging Face.
+
+👉 **Hugging Face Dataset Link:**  https://huggingface.co/datasets/Frankieeee21/spotify-analysis-dataset
+
+The dataset includes raw, cleaned, and intermediate files used across both tasks:
+
+- `Spotify_Dataset_V3.csv`
+- `spotify_cleaned_data.csv`
+- `kmeans_clustered_data.csv`
+- `spotify_database.db`
+- `spotify_data_V3.csv`
+- `spotify_dataset.csv`
+- `spotify_dataset_sample.csv`
+- `data_with_famous_artist.csv`
+
+After downloading, place the files inside the project according to the directory tree above.  
+If the `data/` directory already exists after cloning the repo, **replace its contents** with the downloaded version.
+
 
 
 ## Requirements
