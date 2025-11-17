@@ -74,13 +74,10 @@ scipy >= 1.7.0
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/spotify-analysis.git
-cd spotify-analysis
+git clone https://github.com/VanceF-21/spotify_analysis_project.git
+cd spotify_analysis_project
 
 # Install dependencies
-pip install pandas numpy scikit-learn matplotlib seaborn scipy
-
-# Or use requirements.txt (if provided)
 pip install -r requirements.txt
 ```
 
@@ -163,7 +160,7 @@ python scripts/music_style_classification/SectionB\ Kmeans_feature_and_dimension
 |----------|------|---------|-------------|
 | **Data Configuration** |
 | `--data_path` | `str` | `data/task2/spotify_dataset.csv` | Path to dataset CSV file |
-| `--output_dir` | `str` | `results/task2/cls` | Base directory for output files |
+| `--output_dir` | `str` | `scripts/feature_popularity_analysis/results/cls` | Base directory for output files |
 | **Model Configuration** |
 | `--test_size` | `float` | `0.2` | Test set proportion (0-1) |
 | `--random_state` | `int` | `42` | Random seed for reproducibility |
@@ -184,9 +181,9 @@ python scripts/music_style_classification/SectionB\ Kmeans_feature_and_dimension
 
 **Full experiment (custom hyperparameters):**
 ```bash
-python scripts/task2/spotify_classification_with_comments.py \
+python scripts/tafeature_popularity_analysissk2/classification_binary.py \
     --data_path data/task2/spotify_dataset.csv \
-    --output_dir results/task2/cls \
+    --output_dir scripts/feature_popularity_analysis/results/cls \
     --test_size 0.2 \
     --random_state 42 \
     --models "Decision Tree" "Random Forest" "Extra Trees" "Gradient Boosting" "HistGradient Boosting" "AdaBoost" \
