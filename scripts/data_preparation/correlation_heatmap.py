@@ -71,8 +71,12 @@ def save_image(fig, filename, width=None, height=None, scale=2):
             pass
 
 # data
-CSV_PATH = r"D:/AAA!!2025-2026Edin/aml/code/data_clean_new.csv"
-OUT_DIR = Path(CSV_PATH).parent
+SCRIPT_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = SCRIPT_DIR.parent.parent
+DATA_DIR = PROJECT_ROOT / "data" / "data_preparation"
+
+CSV_PATH = DATA_DIR / "data_clean_new.csv"
+OUT_DIR = DATA_DIR
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 df = pd.read_csv(CSV_PATH)
 
