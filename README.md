@@ -17,6 +17,8 @@ spotify_analysis_project/
 │   ├── data_preparation/
 │   │   ├── kmeans_clustered_data.csv
 │   │   ├── spotify_cleaned_data.csv
+│   │   ├── data_clean_new.csv
+│   │   ├── spotify_dedup_by_day_title__with_combo_stats.csv
 │   │   └── Spotify_Dataset_V3.csv
 │   ├── task1/ 
 │   │   │── spotify_database.db
@@ -78,6 +80,8 @@ The dataset includes raw, cleaned, and intermediate files used across both tasks
 - `spotify_dataset.csv`
 - `spotify_dataset_sample.csv`
 - `data_with_famous_artist.csv`
+- `spotify_dedup_by_day_title__with_combo_stats.csv`
+- `data_clean_new.csv`
 
 After downloading, place the files inside the project according to the directory tree above.  
 If the `data/` directory already exists after cloning the repo, **replace its contents** with the downloaded version.
