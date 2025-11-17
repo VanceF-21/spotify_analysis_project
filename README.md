@@ -60,6 +60,11 @@ The dataset contains Spotify "Top 200" playlists data spanning 2017–2023 with 
 - Pop_points_total, Pop_points_artist, Rank, popularity_class
 
 
+## Data Preparation
+
+You can download datasets used in this project from Hugging Face before running any code. All scripts in Task 1 and Task 2 depend on these files being placed in the correct directory structure.
+
+
 ## Requirements
 
 ### Python Dependencies
