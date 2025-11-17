@@ -40,10 +40,10 @@ def parse_arguments():
     
     # Data configuration
     parser.add_argument('--data_path', type=str, 
-                        default='/Users/vancefeng/Desktop/ords/AML/spotify_analysis_project/data/task2/spotify_dataset.csv',
+                        default='data/task2/spotify_dataset.csv',
                         help='Path to the Spotify dataset CSV file')
     parser.add_argument('--output_dir', type=str,
-                        default='/Users/vancefeng/Desktop/ords/AML/spotify_analysis_project/scripts/feature_popularity_analysis/results/cls',
+                        default='scripts/feature_popularity_analysis/results/cls',
                         help='Base directory for output files')
     
     # Model configuration

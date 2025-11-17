@@ -14,11 +14,19 @@ The project implements a two-stage analytical pipeline:
 ```
 spotify_analysis_project/
 ├── data/
+│   ├── data_preparation/
+│   │   ├── kmeans_clustered_data.csv
+│   │   ├── spotify_cleaned_data.csv
+│   │   ├── data_clean_new.csv
+│   │   ├── spotify_dedup_by_day_title__with_combo_stats.csv
+│   │   └── Spotify_Dataset_V3.csv
 │   ├── task1/ 
 │   │   │── spotify_database.db
 │   │   └── spotify_data_V3.csv   
 │   └── task2/
-│       └── spotify_dataset.csv             # Task 2 specific dataset
+│       │── spotify_dataset.csv
+│       │── spotify_dataset_sample.csv  
+│       └── data_with_famous_artist.csv
 ├── scripts/
 │   ├── data_preparation/
 │   │   ├── correlation_heatmap.py          # Correlation heatmap
@@ -34,7 +42,8 @@ spotify_analysis_project/
 │   └── feature_popularity_analysis/
 │       ├── classification_binary.py                 # Main classification script
 │       ├── regression.py                            # Regression baseline (optional)
-│       ├── figs.ipynb                               # For figures
+│       ├── figs.ipynb
+│       ├── figs                                     # For figures
 │       └── results                                  # For results
 └── README.md
 ```
@@ -51,6 +60,32 @@ The dataset contains Spotify "Top 200" playlists data spanning 2017–2023 with 
 
 **Popularity Metrics:**
 - Pop_points_total, Pop_points_artist, Rank, popularity_class
+
+
+## Download the Datasets
+
+You can download datasets used in this project from Hugging Face before running any code. All scripts in Task 1 and Task 2 depend on these files being placed in the correct directory structure.
+
+Because GitHub cannot host large files, all datasets required for this project must be downloaded manually from Hugging Face.
+
+👉 **Hugging Face Dataset Link:**  https://huggingface.co/datasets/Frankieeee21/spotify-analysis-dataset
+
+The dataset includes raw, cleaned, and intermediate files used across both tasks:
+
+- `Spotify_Dataset_V3.csv`
+- `spotify_cleaned_data.csv`
+- `kmeans_clustered_data.csv`
+- `spotify_database.db`
+- `spotify_data_V3.csv`
+- `spotify_dataset.csv`
+- `spotify_dataset_sample.csv`
+- `data_with_famous_artist.csv`
+- `spotify_dedup_by_day_title__with_combo_stats.csv`
+- `data_clean_new.csv`
+
+After downloading, place the files inside the project according to the directory tree above.  
+If the `data/` directory already exists after cloning the repo, **replace its contents** with the downloaded version.
+
 
 
 ## Requirements
@@ -74,13 +109,10 @@ scipy >= 1.7.0
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/spotify-analysis.git
-cd spotify-analysis
+git clone https://github.com/VanceF-21/spotify_analysis_project.git
+cd spotify_analysis_project
 
 # Install dependencies
-pip install pandas numpy scikit-learn matplotlib seaborn scipy
-
-# Or use requirements.txt (if provided)
 pip install -r requirements.txt
 ```
 
@@ -163,7 +195,7 @@ python SPOTIFY_ANALYSIS_PROJECT/scripts/music_style_classification/SectionB\ Kme
 |----------|------|---------|-------------|
 | **Data Configuration** |
 | `--data_path` | `str` | `data/task2/spotify_dataset.csv` | Path to dataset CSV file |
-| `--output_dir` | `str` | `results/task2/cls` | Base directory for output files |
+| `--output_dir` | `str` | `scripts/feature_popularity_analysis/results/cls` | Base directory for output files |
 | **Model Configuration** |
 | `--test_size` | `float` | `0.2` | Test set proportion (0-1) |
 | `--random_state` | `int` | `42` | Random seed for reproducibility |
@@ -184,9 +216,9 @@ python SPOTIFY_ANALYSIS_PROJECT/scripts/music_style_classification/SectionB\ Kme
 
 **Full experiment (custom hyperparameters):**
 ```bash
-python scripts/task2/spotify_classification_with_comments.py \
+python scripts/tafeature_popularity_analysissk2/classification_binary.py \
     --data_path data/task2/spotify_dataset.csv \
-    --output_dir results/task2/cls \
+    --output_dir scripts/feature_popularity_analysis/results/cls \
     --test_size 0.2 \
     --random_state 42 \
     --models "Decision Tree" "Random Forest" "Extra Trees" "Gradient Boosting" "HistGradient Boosting" "AdaBoost" \

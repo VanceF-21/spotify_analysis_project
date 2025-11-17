@@ -17,17 +17,25 @@ import numpy as np
 from pathlib import Path
 from typing import List, Set, Union, Dict, Any
 
-#Global Configuration
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+
+
+PROJECT_ROOT = SCRIPT_DIR.parent.parent
+
+
+DATA_DIR = PROJECT_ROOT / "data" / "data_preparation"
+
 
 # Input file (raw data)
-INPUT_RAW_DATA: str = "Spotify_Dataset_V3.csv"
+INPUT_RAW_DATA: str = str(DATA_DIR / "Spotify_Dataset_V3.csv")
 # Input file (k-means cluster mapping)
-INPUT_KMEANS_MAP: str = "kmeans_clustered_data_ k=8.csv"
+INPUT_KMEANS_MAP: str = str(DATA_DIR / "kmeans_clustered_data.csv")
 
 # Final output file
-FINAL_OUTPUT_FILE: str = "spotify_cleaned_data.csv"
+FINAL_OUTPUT_FILE: str = str(DATA_DIR / "spotify_cleaned_data.csv")
 
-# Output encoding (utf-8-sig provides a BOM for Excel compatibility)
+# Output encoding
 OUTPUT_ENCODING: str = "utf-8-sig"
 
 
