@@ -14,11 +14,17 @@ The project implements a two-stage analytical pipeline:
 ```
 spotify_analysis_project/
 ├── data/
+│   ├── data_preparation/
+│   │   ├── kmeans_clustered_data.csv
+│   │   ├── spotify_cleaned_data.csv
+│   │   └── Spotify_Dataset_V3.csv
 │   ├── task1/ 
 │   │   │── spotify_database.db
 │   │   └── spotify_data_V3.csv   
 │   └── task2/
-│       └── spotify_dataset.csv             # Task 2 specific dataset
+│       │── spotify_dataset.csv
+│       │── spotify_dataset_sample.csv  
+│       └── data_with_famous_artist.csv
 ├── scripts/
 │   ├── data_preparation/
 │   │   ├── correlation_heatmap.py          # Correlation heatmap
@@ -34,7 +40,8 @@ spotify_analysis_project/
 │   └── feature_popularity_analysis/
 │       ├── classification_binary.py                 # Main classification script
 │       ├── regression.py                            # Regression baseline (optional)
-│       ├── figs.ipynb                               # For figures
+│       ├── figs.ipynb
+│       ├── figs                                     # For figures
 │       └── results                                  # For results
 └── README.md
 ```
