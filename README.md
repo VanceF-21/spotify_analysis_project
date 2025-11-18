@@ -289,7 +289,7 @@ python SPOTIFY_ANALYSIS_PROJECT/scripts/music_style_classification/SectionB\ Kme
 
 **Full experiment (custom hyperparameters):**
 ```bash
-python scripts/tafeature_popularity_analysissk2/classification_binary.py \
+python scripts/feature_popularity_analysis/classification_binary.py \
     --data_path data/task2/spotify_dataset.csv \
     --output_dir scripts/feature_popularity_analysis/results/cls \
     --test_size 0.2 \
