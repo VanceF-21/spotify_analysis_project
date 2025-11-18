@@ -14,11 +14,19 @@ The project implements a two-stage analytical pipeline:
 ```
 spotify_analysis_project/
 ├── data/
+│   ├── data_preparation/
+│   │   ├── kmeans_clustered_data.csv
+│   │   ├── spotify_cleaned_data.csv
+│   │   ├── data_clean_new.csv
+│   │   ├── spotify_dedup_by_day_title__with_combo_stats.csv
+│   │   └── Spotify_Dataset_V3.csv
 │   ├── task1/ 
 │   │   │── spotify_database.db
 │   │   └── spotify_data_V3.csv   
 │   └── task2/
-│       └── spotify_dataset.csv             # Task 2 specific dataset
+│       │── spotify_dataset.csv
+│       │── spotify_dataset_sample.csv  
+│       └── data_with_famous_artist.csv
 ├── scripts/
 │   ├── data_preparation/
 │   │   ├── correlation_heatmap.py          # Correlation heatmap
@@ -34,7 +42,8 @@ spotify_analysis_project/
 │   └── feature_popularity_analysis/
 │       ├── classification_binary.py                 # Main classification script
 │       ├── regression.py                            # Regression baseline (optional)
-│       ├── figs.ipynb                               # For figures
+│       ├── figs.ipynb
+│       ├── figs                                     # For figures
 │       └── results                                  # For results
 └── README.md
 ```
@@ -51,6 +60,32 @@ The dataset contains Spotify "Top 200" playlists data spanning 2017–2023 with 
 
 **Popularity Metrics:**
 - Pop_points_total, Pop_points_artist, Rank, popularity_class
+
+
+## Download the Datasets
+
+You can download datasets used in this project from Hugging Face before running any code. All scripts in Task 1 and Task 2 depend on these files being placed in the correct directory structure.
+
+Because GitHub cannot host large files, all datasets required for this project must be downloaded manually from Hugging Face.
+
+👉 **Hugging Face Dataset Link:**  https://huggingface.co/datasets/Frankieeee21/spotify-analysis-dataset
+
+The dataset includes raw, cleaned, and intermediate files used across both tasks:
+
+- `Spotify_Dataset_V3.csv`
+- `spotify_cleaned_data.csv`
+- `kmeans_clustered_data.csv`
+- `spotify_database.db`
+- `spotify_data_V3.csv`
+- `spotify_dataset.csv`
+- `spotify_dataset_sample.csv`
+- `data_with_famous_artist.csv`
+- `spotify_dedup_by_day_title__with_combo_stats.csv`
+- `data_clean_new.csv`
+
+After downloading, place the files inside the project according to the directory tree above.  
+If the `data/` directory already exists after cloning the repo, **replace its contents** with the downloaded version.
+
 
 
 ## Requirements
@@ -74,17 +109,87 @@ scipy >= 1.7.0
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/spotify-analysis.git
-cd spotify-analysis
+git clone https://github.com/VanceF-21/spotify_analysis_project.git
+cd spotify_analysis_project
 
 # Install dependencies
-pip install pandas numpy scikit-learn matplotlib seaborn scipy
-
-# Or use requirements.txt (if provided)
 pip install -r requirements.txt
 ```
 
 ## Quick Start
+
+### Data Preparation
+
+#### All Command-Line Arguments
+
+| Argument                                           | Type   | Default                                                                  | Description                                                                        |
+| -------------------------------------------------- | ------ | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| **Data Configuration**                             |        |                                                                          |                                                                                    |
+| `--input_raw_path`                                 | `str`  | `data/data_preparation/Spotify_Dataset_V3.csv`                           | Path to the raw Spotify Top-200 CSV file                                           |
+| `--kmeans_map_path`                                | `str`  | `data/data_preparation/kmeans_clustered_data.csv`                        | Path to CSV with per-track K-means cluster assignments                             |
+| `--output_clean_path`                              | `str`  | `data/data_preparation/spotify_cleaned_data.csv`                         | Path for the fully cleaned, deduplicated, feature-rich dataset                     |
+| `--output_dir`                                     | `str`  | `data/data_preparation`                                                  | Base directory for data-preparation outputs                                        |
+| **Cleaning Options (`spotify_data_cleaning.py`)**  |        |                                                                          |                                                                                    |
+| `--deduplicate_by_day_title`                       | `bool` | `True`                                                                   | Whether to deduplicate tracks by `(Date, Title)` key                               |
+| `--fix_loudness_outliers`                          | `bool` | `True`                                                                   | Correct extremely large-magnitude loudness values (divide by 1000)                 |
+| `--clip_bounded_features`                          | `bool` | `True`                                                                   | Clip bounded audio features to `[0, 1]` (e.g. Danceability, Energy, Valence)       |
+| `--compute_time_features`                          | `bool` | `True`                                                                   | Add calendar features (`year`, `month`, `week`, `weekday`, `is_weekend`, `yyyymm`) |
+| `--compute_popularity_points`                      | `bool` | `True`                                                                   | Compute `rank_points`, `pop_points_total`, and `pop_points_artist`                 |
+| `--merge_kmeans_clusters`                          | `bool` | `True`                                                                   | Merge external K-means cluster labels from `kmeans_clustered_data.csv`             |
+| `--compute_combo_stats`                            | `bool` | `True`                                                                   | Compute per-artist-combo audio feature summaries (mean / variance / count)         |
+| **Correlation Heatmap (`correlation_heatmap.py`)** |        |                                                                          |                                                                                    |
+| `--heatmap_input_path`                             | `str`  | `data/data_preparation/data_clean_new.csv`                               | Input CSV used to compute the numeric feature correlation matrix                   |
+| `--heatmap_output_dir`                             | `str`  | `data/data_preparation`                                                  | Directory for saving the correlation heatmap image                                 |
+| `--heatmap_filename`                               | `str`  | `correlation_heatmap.png`                                                | Name of the exported heatmap (PNG)                                                 |
+| **“Table 1” Summaries (`table1.py`)**              |        |                                                                          |                                                                                    |
+| `--table_input_path`                               | `str`  | `data/data_preparation/spotify_dedup_by_day_title__with_combo_stats.csv` | Input CSV used for artist-level style summaries                                    |
+| `--top_k_artists`                                  | `int`  | `8`                                                                      | Number of top artists (by `pop_points_artist`) to include in the summary           |
+| `--top_k_features`                                 | `int`  | `3`                                                                      | Number of audio features to report per top artist                                  |
+| **General Options**                                |        |                                                                          |                                                                                    |
+| `--log_level`                                      | `str`  | `INFO`                                                                   | Logging verbosity. Choices: `DEBUG`, `INFO`, `WARN`, `ERROR`                       |
+| `--overwrite`                                      | `bool` | `True`                                                                   | Overwrite existing output files if they already exist                              |
+
+#### Example Commands
+
+**Run cleaning and feature engineering pipeline:**
+```bash
+python scripts/data_preparation/spotify_data_cleaning.py \
+    --input_raw_path data/data_preparation/Spotify_Dataset_V3.csv \
+    --kmeans_map_path data/data_preparation/kmeans_clustered_data.csv \
+    --output_clean_path data/data_preparation/spotify_cleaned_data.csv \
+    --deduplicate_by_day_title True \
+    --merge_kmeans_clusters True \
+    --compute_combo_stats True
+```
+
+**Generate correlation heatmap from cleaned dataset:**
+```bash
+python scripts/data_preparation/correlation_heatmap.py \
+    --heatmap_input_path data/data_preparation/data_clean_new.csv \
+    --heatmap_output_dir data/data_preparation \
+    --heatmap_filename correlation_heatmap.png
+```
+
+**Create “Table 1” artist summary tables:**
+```bash
+python scripts/data_preparation/table1.py \
+    --table_input_path data/data_preparation/spotify_dedup_by_day_title__with_combo_stats.csv \
+    --top_k_artists 8 \
+    --top_k_features 3
+```
+
+**Expected Outputs:**
+- Cleaned dataset with engineered features: spotify_cleaned_data.csv
+- Correlation matrix heatmap image: correlation_heatmap.png
+- Summary tables for report:
+  overall_feature_means_across_all_artists.csv
+
+  overall_feature_means_top3.csv, overall_feature_means_bottom3.csv
+
+  top8_artists_by_pop_points.csv
+
+  top8_artists_top3_single_features_wide.csv
+
 
 ### Task 1: Music Style Classification
 
@@ -95,6 +200,7 @@ pip install -r requirements.txt
 | **Data Configuration** |
 | `--db_path` | `str` | `data/task1/spotify_database.db` | Path to SQLite database file |
 | `--table_name` | `str` | `KmeanSample` | Table name in the database |
+| `--output_dir` | `str` | `` | Base directory for output files |
 | **Clustering Configuration** |
 | `--n_clusters` | `int` | `8` | Number of clusters for K-means |
 | `--random_state` | `int` | `42` | Random seed for reproducibility |
@@ -122,7 +228,7 @@ python scripts/music_style_classification/MAIN_Elbow_Point_Optimal_Clustering_k8
     --table_name KmeanSample \
     --n_clusters 8 \
     --random_state 42 \
-    --output_dir scripts/music_style_classification/results/task1/clustering \
+    --output_dir  \
     --clustering_method kmeans++
 ```
 
@@ -131,7 +237,7 @@ python scripts/music_style_classification/MAIN_Elbow_Point_Optimal_Clustering_k8
 python scripts/music_style_classification/kmeans_stability_analysis.py \
     --db_path data/task1/spotify_database.db \
     --table_name KmeanSample \
-    --output_dir scripts/music_style_classification/results/task1/stability \
+    --output_dir results/task1/stability \
     --k_values 4 7 8 10 \
     --n_seeds 50 \
     --sample_size 8693 \
@@ -141,9 +247,9 @@ python scripts/music_style_classification/kmeans_stability_analysis.py \
 
 **Feature and dimensionality analysis:**
 ```bash
-python scripts/music_style_classification/SectionB_Kmeans_feature_and_dimension.py \
+python SPOTIFY_ANALYSIS_PROJECT/scripts/music_style_classification/SectionB\ Kmeans_feature_and_dimension.py \
     --db_path data/task1/spotify_database.db \
-    --output_dir scripts/music_style_classification/results/task1/dimension_analysis \
+    --output_dir results/task1/dimension_analysis \
     --n_clusters 12 \
     --random_state 0
 ```
@@ -162,7 +268,7 @@ python scripts/music_style_classification/SectionB_Kmeans_feature_and_dimension.
 |----------|------|---------|-------------|
 | **Data Configuration** |
 | `--data_path` | `str` | `data/task2/spotify_dataset.csv` | Path to dataset CSV file |
-| `--output_dir` | `str` | `scripts/feature_popularity_analysis/results/task2/cls` | Base directory for output files |
+| `--output_dir` | `str` | `scripts/feature_popularity_analysis/results/cls` | Base directory for output files |
 | **Model Configuration** |
 | `--test_size` | `float` | `0.2` | Test set proportion (0-1) |
 | `--random_state` | `int` | `42` | Random seed for reproducibility |
@@ -183,9 +289,9 @@ python scripts/music_style_classification/SectionB_Kmeans_feature_and_dimension.
 
 **Full experiment (custom hyperparameters):**
 ```bash
-python scripts/task2/spotify_classification_with_comments.py \
+python scripts/feature_popularity_analysis/classification_binary.py \
     --data_path data/task2/spotify_dataset.csv \
-    --output_dir scripts/feature_popularity_analysis/results/task2/cls \
+    --output_dir scripts/feature_popularity_analysis/results/cls \
     --test_size 0.2 \
     --random_state 42 \
     --models "Decision Tree" "Random Forest" "Extra Trees" "Gradient Boosting" "HistGradient Boosting" "AdaBoost" \
@@ -197,8 +303,6 @@ python scripts/task2/spotify_classification_with_comments.py \
     --ada_n_estimators 100 \
     --n_jobs -1
 ```
-
-
 
 
 #### Output Files
