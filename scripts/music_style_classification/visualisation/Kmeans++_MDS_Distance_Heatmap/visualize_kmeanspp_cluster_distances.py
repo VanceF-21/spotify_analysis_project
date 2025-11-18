@@ -21,7 +21,7 @@ plt.rcParams['ytick.major.size'] = 4
 
 # Load data
 print("Loading data...")
-conn = sqlite3.connect(r"SPOTIFY_ANALYSIS_PROJECT\spotify_data\spotify_database.db")
+conn = sqlite3.connect(r"data/task1/spotify_database.db")
 df = pd.read_sql("SELECT * FROM KmeanSample;", conn)
 conn.close()
 

@@ -1,0 +1,68 @@
+KMEANS FEATURE AND DIMENSIONALITY REDUCTION ANALYSIS RESULTS
+==================================================
+
+CLUSTER SIZES:
+S0 counts:
+0     342
+1     204
+2       9
+3     295
+4      83
+5     161
+6     130
+7     196
+8     171
+9     245
+10     26
+11    138
+Name: count, dtype: int64
+
+S1 counts:
+0     205
+1     150
+2       9
+3     392
+4     113
+5     252
+6     220
+7     135
+8      28
+9     127
+10    229
+11    140
+Name: count, dtype: int64
+
+S2 counts:
+0     187
+1     200
+2     299
+3       9
+4     250
+5      59
+6     215
+7     196
+8     137
+9     279
+10    140
+11     29
+Name: count, dtype: int64
+
+INERTIA VALUES (TRAINING SET):
+S0 train inertia: 18178.378708096418
+S1 train inertia: 14567.883793062509
+S2 train inertia: 15869.647671569881
+
+SSE VALUES (VALIDATION SET):
+S0 val SSE: 5042.367017412691
+S1 val SSE: 3930.707718317432
+S2 val SSE: 4352.363547892872
+
+ADJUSTED RAND INDEX (ARI):
+ARI S0 vs S1: 0.3974066370339813
+ARI S0 vs S2: 0.4031174877504609
+ARI S1 vs S2: 0.4272801440265328
+
+JACCARD INDEX:
+Jaccard S0 vs S1: 0.3024163536092927
+Jaccard S0 vs S2: 0.30558528738940505
+Jaccard S1 vs S2: 0.32464261258570815

@@ -36,7 +36,7 @@ class EnhancedElbowAnalyzer:
         - plot_dpi: figure DPI
         - figsize: figure size
         """
-        self.db_path = "SPOTIFY_ANALYSIS_PROJECT/data/task1/spotify_database.db"
+        self.db_path = "data/task1/spotify_database.db"
         self.table_name = table_name
         self.features = features or ['Danceability', 'Loudness', 'Speechiness',
                                      'Acousticness', 'Instrumentalness', 'Valence']
@@ -280,7 +280,7 @@ class EnhancedElbowAnalyzer:
         )
         
         # Save figure
-        output_dir = output_dir or 'SPOTIFY_ANALYSIS_PROJECT/scripts/music_style_classification/results'
+        output_dir = output_dir or 'scripts/music_style_classification/results'
         svg_filename = os.path.join(output_dir, 'enhanced_elbow_analysis.svg')
         png_filename = os.path.join(output_dir, 'enhanced_elbow_analysis.png')
         

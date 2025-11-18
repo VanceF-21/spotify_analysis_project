@@ -25,7 +25,7 @@ class KMeansStabilityAnalyzer:
         - n_seeds: number of random seeds (runs) for each K value
         - sample_size: sample size used for stability analysis
         """
-        self.db_path = db_path or r"SPOTIFY_ANALYSIS_PROJECT/data/task1/spotify_database.db"
+        self.db_path = db_path or r"data/task1/spotify_database.db"
         self.table_name = table_name
         self.features = features or ['Danceability', 'Loudness', 'Speechiness',
                                      'Acousticness', 'Instrumentalness', 'Valence']
