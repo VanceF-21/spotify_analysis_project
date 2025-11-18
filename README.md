@@ -86,6 +86,79 @@ pip install -r requirements.txt
 
 ## Quick Start
 
+### Data Preparation
+
+#### All Command-Line Arguments
+
+| Argument                                           | Type   | Default                                                                  | Description                                                                        |
+| -------------------------------------------------- | ------ | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| **Data Configuration**                             |        |                                                                          |                                                                                    |
+| `--input_raw_path`                                 | `str`  | `data/data_preparation/Spotify_Dataset_V3.csv`                           | Path to the raw Spotify Top-200 CSV file                                           |
+| `--kmeans_map_path`                                | `str`  | `data/data_preparation/kmeans_clustered_data.csv`                        | Path to CSV with per-track K-means cluster assignments                             |
+| `--output_clean_path`                              | `str`  | `data/data_preparation/spotify_cleaned_data.csv`                         | Path for the fully cleaned, deduplicated, feature-rich dataset                     |
+| `--output_dir`                                     | `str`  | `data/data_preparation`                                                  | Base directory for data-preparation outputs                                        |
+| **Cleaning Options (`spotify_data_cleaning.py`)**  |        |                                                                          |                                                                                    |
+| `--deduplicate_by_day_title`                       | `bool` | `True`                                                                   | Whether to deduplicate tracks by `(Date, Title)` key                               |
+| `--fix_loudness_outliers`                          | `bool` | `True`                                                                   | Correct extremely large-magnitude loudness values (divide by 1000)                 |
+| `--clip_bounded_features`                          | `bool` | `True`                                                                   | Clip bounded audio features to `[0, 1]` (e.g. Danceability, Energy, Valence)       |
+| `--compute_time_features`                          | `bool` | `True`                                                                   | Add calendar features (`year`, `month`, `week`, `weekday`, `is_weekend`, `yyyymm`) |
+| `--compute_popularity_points`                      | `bool` | `True`                                                                   | Compute `rank_points`, `pop_points_total`, and `pop_points_artist`                 |
+| `--merge_kmeans_clusters`                          | `bool` | `True`                                                                   | Merge external K-means cluster labels from `kmeans_clustered_data.csv`             |
+| `--compute_combo_stats`                            | `bool` | `True`                                                                   | Compute per-artist-combo audio feature summaries (mean / variance / count)         |
+| **Correlation Heatmap (`correlation_heatmap.py`)** |        |                                                                          |                                                                                    |
+| `--heatmap_input_path`                             | `str`  | `data/data_preparation/data_clean_new.csv`                               | Input CSV used to compute the numeric feature correlation matrix                   |
+| `--heatmap_output_dir`                             | `str`  | `data/data_preparation`                                                  | Directory for saving the correlation heatmap image                                 |
+| `--heatmap_filename`                               | `str`  | `correlation_heatmap.png`                                                | Name of the exported heatmap (PNG)                                                 |
+| **“Table 1” Summaries (`table1.py`)**              |        |                                                                          |                                                                                    |
+| `--table_input_path`                               | `str`  | `data/data_preparation/spotify_dedup_by_day_title__with_combo_stats.csv` | Input CSV used for artist-level style summaries                                    |
+| `--top_k_artists`                                  | `int`  | `8`                                                                      | Number of top artists (by `pop_points_artist`) to include in the summary           |
+| `--top_k_features`                                 | `int`  | `3`                                                                      | Number of audio features to report per top artist                                  |
+| **General Options**                                |        |                                                                          |                                                                                    |
+| `--log_level`                                      | `str`  | `INFO`                                                                   | Logging verbosity. Choices: `DEBUG`, `INFO`, `WARN`, `ERROR`                       |
+| `--overwrite`                                      | `bool` | `True`                                                                   | Overwrite existing output files if they already exist                              |
+
+#### Example Commands
+
+**Run cleaning and feature engineering pipeline:**
+```bash
+python scripts/data_preparation/spotify_data_cleaning.py \
+    --input_raw_path data/data_preparation/Spotify_Dataset_V3.csv \
+    --kmeans_map_path data/data_preparation/kmeans_clustered_data.csv \
+    --output_clean_path data/data_preparation/spotify_cleaned_data.csv \
+    --deduplicate_by_day_title True \
+    --merge_kmeans_clusters True \
+    --compute_combo_stats True
+```
+
+**Generate correlation heatmap from cleaned dataset:**
+```bash
+python scripts/data_preparation/correlation_heatmap.py \
+    --heatmap_input_path data/data_preparation/data_clean_new.csv \
+    --heatmap_output_dir data/data_preparation \
+    --heatmap_filename correlation_heatmap.png
+```
+
+**Create “Table 1” artist summary tables:**
+```bash
+python scripts/data_preparation/table1.py \
+    --table_input_path data/data_preparation/spotify_dedup_by_day_title__with_combo_stats.csv \
+    --top_k_artists 8 \
+    --top_k_features 3
+```
+
+**Expected Outputs:**
+- Cleaned dataset with engineered features: spotify_cleaned_data.csv
+- Correlation matrix heatmap image: correlation_heatmap.png
+- Summary tables for report:
+  overall_feature_means_across_all_artists.csv
+
+  overall_feature_means_top3.csv, overall_feature_means_bottom3.csv
+
+  top8_artists_by_pop_points.csv
+
+  top8_artists_top3_single_features_wide.csv
+
+
 ### Task 1: Music Style Classification
 
 #### All Command-Line Arguments
