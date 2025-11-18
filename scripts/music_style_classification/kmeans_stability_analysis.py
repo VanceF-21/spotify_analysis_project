@@ -13,7 +13,7 @@ import time
 class KMeansStabilityAnalyzer:
     def __init__(self, db_path=None, table_name="KmeanSample", features=None,
                  k_values=[4, 7, 8, 10], n_seeds=100, sample_size=10000,
-                 n_init=10, output_dir="results"):
+                 n_init=10, output_dir="scripts/music_style_classification/results/"):
         """
         K-means clustering stability analyzer
         
@@ -369,6 +369,7 @@ def main():
         n_seeds=50,              # Run 50 times for each K value
         n_init=50,               # Number of initial center attempts
         sample_size=10000        # Sample size
+        # output_dir 默认已经是 "scripts/music_style_classification/results/"
     )
     
     # Run full analysis and visualization workflow
@@ -380,9 +381,10 @@ def main():
     print(f"2. Using K-means++ initialization, n_init={analyzer.n_init}")
     print(f"3. ARI calculated based on comparison with median run")
     print(f"4. Data sample size: {analyzer.sample_size}")
-    print(f"5. All result files are saved in the results directory")
+    print(f"5. All result files are saved in {analyzer.output_dir}")
     print("========================================")
 
 if __name__ == "__main__":
     main()
+
 

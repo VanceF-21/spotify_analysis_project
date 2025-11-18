@@ -197,10 +197,6 @@ python scripts/data_preparation/table1.py \
 
 | Argument | Type | Default | Description |
 |----------|------|---------|-------------|
-| **Data Configuration** |
-| `--db_path` | `str` | `data/task1/spotify_database.db` | Path to SQLite database file |
-| `--table_name` | `str` | `KmeanSample` | Table name in the database |
-| `--output_dir` | `str` | `` | Base directory for output files |
 | **Clustering Configuration** |
 | `--n_clusters` | `int` | `8` | Number of clusters for K-means |
 | `--random_state` | `int` | `42` | Random seed for reproducibility |
@@ -228,7 +224,7 @@ python scripts/music_style_classification/MAIN_Elbow_Point_Optimal_Clustering_k8
     --table_name KmeanSample \
     --n_clusters 8 \
     --random_state 42 \
-    --output_dir  \
+    --output_dir  scripts/music_style_classification/results/\
     --clustering_method kmeans++
 ```
 
@@ -237,7 +233,7 @@ python scripts/music_style_classification/MAIN_Elbow_Point_Optimal_Clustering_k8
 python scripts/music_style_classification/kmeans_stability_analysis.py \
     --db_path data/task1/spotify_database.db \
     --table_name KmeanSample \
-    --output_dir results/task1/stability \
+    --output_dir scripts/music_style_classification/results/ \
     --k_values 4 7 8 10 \
     --n_seeds 50 \
     --sample_size 8693 \
@@ -247,9 +243,9 @@ python scripts/music_style_classification/kmeans_stability_analysis.py \
 
 **Feature and dimensionality analysis:**
 ```bash
-python SPOTIFY_ANALYSIS_PROJECT/scripts/music_style_classification/SectionB\ Kmeans_feature_and_dimension.py \
+python scripts/music_style_classification/SectionB\ Kmeans_feature_and_dimension.py \
     --db_path data/task1/spotify_database.db \
-    --output_dir results/task1/dimension_analysis \
+    --output_dir scripts/music_style_classification/results/ \
     --n_clusters 12 \
     --random_state 0
 ```
